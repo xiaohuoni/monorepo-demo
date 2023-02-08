@@ -1,0 +1,63 @@
+{
+  "description": "",
+  "devDependencies": {
+    "@changesets/cli": "2.19.0",
+    "@types/node": "^15.12.2",
+    "@types/react": "^17.0.0",
+    "@types/react-dom": "^17.0.0",
+    "@umijs/fabric": "2.6.4",
+    "@umijs/utils": "4.x",
+    "cross-env": "^7.0.3",
+    "eslint": "^7.32.0",
+    "esno": "^0.14.1",
+    "execa": "4.0.3",
+    "father-build": "1.21.1",
+    "husky": "^7.0.1",
+    "inquirer": "8.2.3",
+    "lint-staged": "^11.1.2",
+    "prettier": "^2.3.2",
+    "react": "^17.0.1",
+    "react-dom": "^17.0.1",
+    "stylelint": "^13.13.1",
+    "ts-node": "^10.7.0",
+    "turbo": "1.1.9",
+    "typescript": "^4.1.3",
+    "yorkie": "^2.0.0"
+  },
+  "engines": {
+    "node": ">=10.0.0"
+  },
+  "gitHooks": {
+    "pre-commit": "lint-staged"
+  },
+  "lint-staged": {
+    "**/*.less": "stylelint --syntax less",
+    "**/*.{ts,tsx}": "npm run lint-staged:js",
+    "**/*.{ts,tsx,json,jsx,less}": [
+      "git add",
+      "prettier --write"
+    ]
+  },
+  "private": true,
+  "scripts": {
+    "bootstrap": "node ./scripts/bootstrap.js",
+    "build": "esno scripts/turbo.ts --cmd build",
+    "dev": "pnpm -r --recursive watch",
+    "lint": "npm run lint:js && npm run lint:style && npm run lint:prettier",
+    "lint-staged": "lint-staged",
+    "lint-staged:js": "eslint --ext .ts,.tsx ",
+    "lint:fix": "eslint --fix --cache --ext .ts,.tsx --format=pretty ./packages && npm run lint:style",
+    "lint:js": "eslint --cache --ext .ts,.tsx --format=pretty ./packages",
+    "lint:prettier": "prettier -c --write \"packages/**/*\" --end-of-line auto",
+    "lint:style": "stylelint --fix \"packages/**/*.less\" --syntax less",
+    "format": "prettier -c --write \"packages/**/*\"",
+    "pub": "pnpm build && node ./scripts/release.js",
+    "tsc": "tsc --noEmit",
+    "prereleases": "changeset pre enter alpha",
+    "changeset": "changeset",
+    "vp": "changeset version"
+  },
+  "workspaces": [
+    "packages/*"
+  ]
+}
