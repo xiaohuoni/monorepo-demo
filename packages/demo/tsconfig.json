@@ -9,7 +9,8 @@
     "noUnusedParameters": true,
     "strict": true,
     "skipLibCheck": true,
-    "target": "es2015",
+    "target": "es2020",
+    "module": "ES2020",
     "jsx": "react"
   },
   "include": ["./src","typings.d.ts"]

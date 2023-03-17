@@ -1,7 +1,12 @@
-import type { FC } from 'react';
 import React from 'react';
+import Loadable from 'react-loadable';
 
-const DemoButton: FC = () => {
-  return <button>click</button>;
-};
-export { DemoButton };
+const Button = Loadable({
+  loader: async () => {
+    const button = await import(/* webpackChunkName: "demo" */ './button');
+    return button;
+  },
+  loading: () => <div>Loading...</div>,
+});
+
+export { Button };
